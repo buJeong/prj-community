@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bu.community.service.dao.BoardDao">
+	<select id="getPostList" resultMap="PostVo">
+		SELECT
+		id,
+		date_format(regDate, '%y.%m.%d') as regDate,
+		title,
+		contents,
+		writer,
+		hit
+		FROM post
+	</select>
+	<select id="getPostOne" parameterType="int" resultMap="PostVo">
+		SELECT *
+		FROM post
+		WHERE id = #{id}
+	</select>
+	<insert id="addPost" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO post
+		(regDate, title, contents, writer, hit)
+		VALUES
+		(NOW(), #{title}, #{contents}, '관리자', 0)
+	</insert>
+	<resultMap type="com.bu.community.service.vo.PostVo" id="PostVo">
+		<id property="id" column="id"/>
+		<id property="regDate" column="regDate"/>
+		<id property="title" column="title"/>
+		<id property="contents" column="contents"/>
+		<id property="writer" column="writer"/>
+		<id property="hit" column="hit"/>
+		<association property="extra" javaType="java.util.HashMap">
+			<result property="extra" column="extra"/>
+		</association>
+	</resultMap>
+</mapper>
