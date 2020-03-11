@@ -1,3 +1,5 @@
+custom:
+  logoText: buJeong-Board
 spring:
   mvc:
     view:

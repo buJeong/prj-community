@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.bu.community.service.vo.PostVo"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+
+<%@ include file="../layout/header.jspf" %>
+<script type="text/javascript">
+
+function goList() {
+	var url = "/boardlist";
+	location.href = url;
+}
+
+function goModify(id) {
+	var url = "/modify?id=" + id;
+	location.href = url;
+}
+</script>
+<a href="javascript:goList();">목록</a>
+<a href="javascript:goModify(${postOne.id});">수정</a>
 <table>
 	<tbody>
 		<tr>
@@ -21,5 +27,4 @@
 		</tr>
 	</tbody>
 </table>
-</body>
-</html>
+<%@ include file="../layout/footer.jspf" %>

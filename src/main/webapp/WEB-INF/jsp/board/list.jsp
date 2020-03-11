@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.bu.community.service.vo.PostVo"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
-<head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	pageEncoding="UTF-8"%>
+
+<%@ include file="../layout/header.jspf" %>
 <script type="text/javascript">
 function showDetail(id) {
 	var url = "/detail?id=" + id;
@@ -17,10 +12,6 @@ function goAdd() {
 	location.href = url;
 }
 </script>
-<meta charset="UTF-8">
-<title>게시판</title>
-</head>
-<body>
 <a href="javascript:goAdd();">등록</a>
 <table>
 	<thead>
@@ -44,5 +35,4 @@ function goAdd() {
 		</c:forEach>
 	</tbody>
 </table>
-</body>
-</html>
+<%@ include file="../layout/footer.jspf" %>

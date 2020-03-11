@@ -25,14 +25,12 @@ public class BoardController {
 	@RequestMapping(value = "/boardlist")
 	public String getBoardList(Model model) {
 		List<PostVo> postList = boardService.getBoardList();
-		System.out.println("=============================================" + postList);
 		model.addAttribute("postList", postList);
 		return "board/list";
 	}
 	
 	@RequestMapping(value = "/detail")
 	public String getPostOne(@RequestParam int id, Model model) {
-		System.out.println("=========================---");
 		PostVo postOne = boardService.getPostOne(id);
 		model.addAttribute("postOne", postOne);
 		return "board/detail";
@@ -53,6 +51,28 @@ public class BoardController {
 			response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>alert('등록'); location.href = '/boardlist';</script>");
+            out.flush();
+		}
+		return url;
+	}
+	
+	@RequestMapping(value = "/modify")
+	public String goModifyPostPage(@RequestParam int id, Model model) {
+		PostVo postOne = boardService.getPostOne(id);
+		model.addAttribute("postOne", postOne);
+		return "board/modify";
+	}
+	
+	@RequestMapping(value = "/doModify")
+	public String doModifyPost(@RequestParam Map<String, Object> info, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String url = "";
+		int rsNum = boardService.modifyPost(info);
+		if (rsNum == 0) {
+			url = "redirect:/";
+		} else if (rsNum == 1) {
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('수정'); location.href = '/detail?id=" + info.get("id")  + "';</script>");
             out.flush();
 		}
 		return url;

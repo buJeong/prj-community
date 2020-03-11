@@ -13,4 +13,6 @@ public interface BoardService {
 
 	int addPost(Map<String, Object> info);
 
+	int modifyPost(Map<String, Object> info);
+
 }

@@ -26,5 +26,9 @@ public class BoardServiceImpl implements BoardService {
 	public int addPost(Map<String, Object> info) {
 		return boardDao.addPost(info);
 	}
+	@Override
+	public int modifyPost(Map<String, Object> info) {
+		return boardDao.modifyPost(info);
+	}
 
 }

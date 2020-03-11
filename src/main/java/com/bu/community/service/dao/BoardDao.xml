@@ -23,6 +23,15 @@
 		VALUES
 		(NOW(), #{title}, #{contents}, '관리자', 0)
 	</insert>
+	<update id="modifyPost" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		UPDATE post
+		SET
+			title = #{title},
+			contents = #{contents}
+		WHERE
+			id = #{id}
+		AND writer = #{writer}
+	</update>
 	<resultMap type="com.bu.community.service.vo.PostVo" id="PostVo">
 		<id property="id" column="id"/>
 		<id property="regDate" column="regDate"/>

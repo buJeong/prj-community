@@ -5,17 +5,17 @@
 <script type="text/javascript">
 $(function() {
 	$('#reset').click(function() {
-		if ( confirm('내용이 초기화됩니다.\n초기화하시겠습니까?') == true ) {
-			$('#postAddForm input[name="title"]').val('');
-			$('#postAddForm textarea[name="contents"]').val('');
+		if ( confirm('처음 내용으로 초기화합니다.\n초기화하시겠습니까?') == true ) {
+			$('#postModifyForm input[name="title"]').val('${postOne.title}');
+			$('#postModifyForm textarea[name="contents"]').val('${postOne.contents}');
 		} else {
 			return;
 		}
 	});
 	$('#save').click(function() {
-		if ( confirm('등록하시겠습니까?') == true ) {
-			var form = $('#postAddForm');
-			form.attr("action", "/doAdd");
+		if ( confirm('내용이 수정됩니다.\n수정하시겠습니까?') == true ) {
+			var form = $('#postModifyForm');
+			form.attr("action", "/doModify");
 			form.attr("method", "post");
 			form.submit();
 		} else {
@@ -27,16 +27,16 @@ $(function() {
 	});
 })
 </script>
-<form id="postAddForm">
+<form action="" id="postModifyForm">
+	<input type="hidden" name="id" value="${postOne.id }" />
+	<input type="hidden" name="writer" value="${postOne.writer }" />
 	<table>
 		<tbody>
 			<tr>
-				<th>제목 : </th>
-				<td><input type="text" name="title" value="" /></td>
+				<td><input type="text" name="title" placeholder="${postOne.title }"></td>
 			</tr>
 			<tr>
-				<th>내용 : </th>
-				<td><textarea name="contents" id="contents" cols="30" rows="10"></textarea></td>
+				<td><textarea name="contents" id="" cols="30" rows="10" placeholder="${postOne.contents }"></textarea></td>
 			</tr>
 			<tr>
 				<td><input type="button" id="reset" value="초기화"/></td>
