@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostVo {
-	private int id;
+	private int seq;
+	private int no;
 	private String regDate;
 	private String title;
 	private String contents;

@@ -23,15 +23,15 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	@RequestMapping(value = "/boardlist")
-	public String getBoardList(Model model) {
+	public String showPostList(Model model) {
 		List<PostVo> postList = boardService.getBoardList();
 		model.addAttribute("postList", postList);
 		return "board/list";
 	}
 	
 	@RequestMapping(value = "/detail")
-	public String getPostOne(@RequestParam int id, Model model) {
-		PostVo postOne = boardService.getPostOne(id);
+	public String showPostOne(@RequestParam int seq, Model model) {
+		PostVo postOne = boardService.getPostOne(seq);
 		model.addAttribute("postOne", postOne);
 		return "board/detail";
 	}
@@ -44,6 +44,8 @@ public class BoardController {
 	@RequestMapping(value = "/doAdd")
 	public String doAddPost(@RequestParam Map<String, Object> info, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String url = "";
+		int nextAddNo = boardService.getLastNo() + 1;
+		info.put("no", nextAddNo);
 		int rsNum = boardService.addPost(info);
 		if (rsNum == 0) {
 			url = "redirect:/";
@@ -57,14 +59,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/modify")
-	public String goModifyPostPage(@RequestParam int id, Model model) {
-		PostVo postOne = boardService.getPostOne(id);
+	public String goModifyPostPage(@RequestParam int seq, Model model) {
+		PostVo postOne = boardService.getPostOne(seq);
 		model.addAttribute("postOne", postOne);
 		return "board/modify";
 	}
 	
 	@RequestMapping(value = "/doModify")
-	public String doModifyPost(@RequestParam Map<String, Object> info, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String doModifyPost(@RequestParam Map<String, Object> info, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String url = "";
 		int rsNum = boardService.modifyPost(info);
 		if (rsNum == 0) {
@@ -72,9 +74,22 @@ public class BoardController {
 		} else if (rsNum == 1) {
 			response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('수정'); location.href = '/detail?id=" + info.get("id")  + "';</script>");
+            out.println("<script>alert('수정'); location.href = '/detail?seq=" + info.get("seq")  + "';</script>");
             out.flush();
 		}
+		return url;
+	}
+	
+	@RequestMapping(value = "/delete")
+	public String doDeletePost(@RequestParam int seq,  HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String url = "";
+		boardService.modifyPostNo(seq);
+		boardService.deletePost(seq);
+		response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('삭제'); location.href = '/boardlist';</script>");
+        out.flush();
+
 		return url;
 	}
 }

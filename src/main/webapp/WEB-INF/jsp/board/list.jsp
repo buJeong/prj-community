@@ -3,8 +3,8 @@
 
 <%@ include file="../layout/header.jspf" %>
 <script type="text/javascript">
-function showDetail(id) {
-	var url = "/detail?id=" + id;
+function showDetail(seq) {
+	var url = "/detail?seq=" + seq;
 	location.href = url;
 }
 function goAdd() {
@@ -26,8 +26,8 @@ function goAdd() {
 	<tbody>
 		<c:forEach items="${postList}" var="post">
 		<tr>
-			<td>${post.id}</td>
-			<td><a href="javascript:showDetail(${post.id});">${post.title}</a></td>
+			<td>${post.no}</td>
+			<td><a href="javascript:showDetail(${post.seq});">${post.title}</a></td>
 			<td>${post.writer}</td>
 			<td>${post.regDate}</td>
 			<td></td>

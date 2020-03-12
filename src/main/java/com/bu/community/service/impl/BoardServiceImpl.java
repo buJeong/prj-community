@@ -19,8 +19,8 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getPostList();
 	}
 	@Override
-	public PostVo getPostOne(int id) {
-		return boardDao.getPostOne(id);
+	public PostVo getPostOne(int seq) {
+		return boardDao.getPostOne(seq);
 	}
 	@Override
 	public int addPost(Map<String, Object> info) {
@@ -29,6 +29,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int modifyPost(Map<String, Object> info) {
 		return boardDao.modifyPost(info);
+	}
+	@Override
+	public int deletePost(int seq) {
+		return boardDao.deletePost(seq);
+	}
+	@Override
+	public int getLastNo() {
+		return boardDao.getLastNo();
+	}
+	@Override
+	public void modifyPostNo(int seq) {
+		boardDao.modifyPostNo(seq);
 	}
 
 }

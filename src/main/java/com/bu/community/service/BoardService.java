@@ -9,10 +9,16 @@ public interface BoardService {
 
 	List<PostVo> getBoardList();
 
-	PostVo getPostOne(int id);
+	PostVo getPostOne(int seq);
 
 	int addPost(Map<String, Object> info);
 
 	int modifyPost(Map<String, Object> info);
+
+	int deletePost(int seq);
+
+	int getLastNo();
+
+	void modifyPostNo(int seq);
 
 }

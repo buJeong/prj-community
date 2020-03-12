@@ -14,10 +14,22 @@ $(function() {
 	});
 	$('#save').click(function() {
 		if ( confirm('내용이 수정됩니다.\n수정하시겠습니까?') == true ) {
-			var form = $('#postModifyForm');
-			form.attr("action", "/doModify");
-			form.attr("method", "post");
-			form.submit();
+			var $form = $('#postModifyForm');
+			var $title = $form.find('input[name="title"]');
+			var $contents = $form.find('textarea[name="contents"]');
+			if ( $title.val() == '' || $title.val() == null ) {
+				alert('제목을 입력하세요.');
+				$title.focus();
+				return;
+			}
+			if ( $contents.val() == '' || $contents.val() == null ) {
+				alert('내용을 입력하세요.');
+				$contents.focus();
+				return;
+			}
+			$form.attr("action", "/doModify");
+			$form.attr("method", "post");
+			$form.submit();
 		} else {
 			return;
 		}
@@ -28,7 +40,8 @@ $(function() {
 })
 </script>
 <form action="" id="postModifyForm">
-	<input type="hidden" name="id" value="${postOne.id }" />
+	<input type="hidden" name="seq" value="${postOne.seq }" />
+	<input type="hidden" name="no" value="${postOne.no }" />
 	<input type="hidden" name="writer" value="${postOne.writer }" />
 	<table>
 		<tbody>
@@ -36,7 +49,7 @@ $(function() {
 				<td><input type="text" name="title" placeholder="${postOne.title }"></td>
 			</tr>
 			<tr>
-				<td><textarea name="contents" id="" cols="30" rows="10" placeholder="${postOne.contents }"></textarea></td>
+				<td><textarea name="contents"  cols="30" rows="10" placeholder="${postOne.contents }"></textarea></td>
 			</tr>
 			<tr>
 				<td><input type="button" id="reset" value="초기화"/></td>

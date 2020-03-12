@@ -14,10 +14,10 @@ $(function() {
 	});
 	$('#save').click(function() {
 		if ( confirm('등록하시겠습니까?') == true ) {
-			var form = $('#postAddForm');
-			form.attr("action", "/doAdd");
-			form.attr("method", "post");
-			form.submit();
+			var $form = $('#postAddForm');
+			$form.attr("action", "/doAdd");
+			$form.attr("method", "post");
+			$form.submit();
 		} else {
 			return;
 		}
