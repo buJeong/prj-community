@@ -13,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bu.community.service.BoardService;
+import com.bu.community.service.MenuService;
+import com.bu.community.service.vo.MenuVo;
 import com.bu.community.service.vo.PostVo;
 
 @Controller
@@ -22,6 +25,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private MenuService menuService;
+	
 	@RequestMapping(value = "/boardlist")
 	public String showPostList(Model model) {
 		List<PostVo> postList = boardService.getBoardList();
@@ -91,5 +97,11 @@ public class BoardController {
         out.flush();
 
 		return url;
+	}
+	
+	@RequestMapping(value = "/getTopMenu")
+	@ResponseBody
+	public List<MenuVo> sendTopMenu() {
+		return menuService.getTopMenu();
 	}
 }

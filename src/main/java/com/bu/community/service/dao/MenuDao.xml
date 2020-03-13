@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bu.community.service.dao.MenuDao">
+	<select id="getTopMenu" resultMap="MenuVo">
+		SELECT
+			seq,
+			regDate,
+			`name`
+		FROM
+			menu
+	</select>
+	<resultMap type="com.bu.community.service.vo.MenuVo" id="MenuVo">
+		<id property="seq" column="seq"/>
+		<id property="regDate" column="regDate"/>
+		<id property="name" column="name"/>	
+	</resultMap>
+</mapper>

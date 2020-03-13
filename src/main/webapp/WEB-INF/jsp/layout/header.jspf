@@ -12,3 +12,4 @@
 </head>
 <body>
 <h1><c:out value="${logoText}"></c:out></h1>
+<c:import url="../layout/menu.jsp"/>

@@ -11,6 +11,14 @@ function goAdd() {
 	var url = "/add";
 	location.href = url;
 }
+function deletePost(seq) {
+	if ( confirm('삭제하시겠습니까?') == true ) {
+		var url = "/delete?seq=" + seq;
+		location.href = url;
+	} else {
+		return;
+	}
+}
 </script>
 <a href="javascript:goAdd();">등록</a>
 <table>
@@ -30,7 +38,7 @@ function goAdd() {
 			<td><a href="javascript:showDetail(${post.seq});">${post.title}</a></td>
 			<td>${post.writer}</td>
 			<td>${post.regDate}</td>
-			<td></td>
+			<td><a href="javascript:deletePost(${post.seq});">삭제</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>
