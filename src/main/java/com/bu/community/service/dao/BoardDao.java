@@ -20,8 +20,6 @@ public interface BoardDao {
 
 	int deletePost(int seq);
 
-	int getLastNo();
-
-	void modifyPostNo(int seq);
+	List<PostVo> getListContainThisSeq(int seq);
 
 }

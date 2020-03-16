@@ -32,9 +32,12 @@ function deletePost(seq) {
 		</tr>
 	</thead>
 	<tbody>
+		
+		<c:set var="no" value="${postList.size()+1}"/>
 		<c:forEach items="${postList}" var="post">
+		<c:set var="no" value="${no-1}"/>
 		<tr>
-			<td>${post.no}</td>
+			<td>${no}</td>
 			<td><a href="javascript:showDetail(${post.seq});">${post.title}</a></td>
 			<td>${post.writer}</td>
 			<td>${post.regDate}</td>

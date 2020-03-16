@@ -5,21 +5,35 @@
 	<select id="getPostList" resultMap="PostVo">
 		SELECT
 			seq,
-			no,
 			date_format(regDate, '%y.%m.%d') as regDate,
 			title,
 			contents,
 			writer,
-			hit
+			hit,
+			menu_seq
 		FROM post
 		WHERE
 			delStatus = 0
 		ORDER BY seq DESC
 	</select>
+	<select id="getListContainThisSeq" parameterType="int" resultMap="PostVo">
+		SELECT
+			seq,
+			date_format(regDate, '%y.%m.%d') as regDate,
+			title,
+			contents,
+			writer,
+			hit,
+			menu_seq
+		FROM post
+		WHERE
+			delStatus = 0
+		AND menu_seq = #{seq}
+		ORDER BY seq DESC
+	</select>
 	<select id="getPostOne" parameterType="int" resultMap="PostVo">
 		SELECT
 			seq,
-			no,
 			date_format(regDate, '%y.%m.%d') as regDate,
 			title,
 			contents,
@@ -29,19 +43,11 @@
 		WHERE
 			seq = #{seq}
 	</select>
-	<select id="getLastNo" resultType="int">
-		SELECT
-			no
-		FROM post
-		WHERE
-			delStatus = 0
-		ORDER BY no DESC LIMIT 1
-	</select>
 	<insert id="addPost" parameterType="map" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO post
-			(no, regDate, title, contents, writer, hit)
+			(regDate, title, contents, writer, hit, menu_seq)
 		VALUES
-			(#{no}, NOW(), #{title}, #{contents}, '관리자', 0)
+			(NOW(), #{title}, #{contents}, '관리자', 0, #{menu_seq})
 	</insert>
 	<update id="modifyPost" parameterType="map" useGeneratedKeys="true" keyProperty="id">
 		UPDATE post
@@ -50,15 +56,7 @@
 			contents = #{contents}
 		WHERE
 			seq = #{seq}
-		AND no = #{no}
 		AND writer = #{writer}
-	</update>
-	<update id="modifyPostNo" parameterType="int">
-		UPDATE post
-		SET
-			no = no - 1
-		WHERE
-			seq > #{seq}
 	</update>
 	<delete id="deletePost" parameterType="int">
 		DELETE FROM post
@@ -67,12 +65,21 @@
 	</delete>
 	<resultMap type="com.bu.community.service.vo.PostVo" id="PostVo">
 		<id property="seq" column="seq"/>
-		<id property="no" column="no"/>
 		<id property="regDate" column="regDate"/>
 		<id property="title" column="title"/>
 		<id property="contents" column="contents"/>
 		<id property="writer" column="writer"/>
 		<id property="hit" column="hit"/>
+		<id property="menu_seq" column="menu_seq"/>
+		<association property="extra" javaType="java.util.HashMap">
+			<result property="extra" column="extra"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.bu.community.service.vo.MenuVo" id="MenuVo">
+		<id property="seq" column="seq"/>
+		<id property="regDate" column="regDate"/>
+		<id property="name" column="name"/>
 		<association property="extra" javaType="java.util.HashMap">
 			<result property="extra" column="extra"/>
 		</association>

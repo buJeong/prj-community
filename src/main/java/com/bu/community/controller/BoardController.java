@@ -29,10 +29,17 @@ public class BoardController {
 	private MenuService menuService;
 	
 	@RequestMapping(value = "/boardlist")
-	public String showPostList(Model model) {
-		List<PostVo> postList = boardService.getBoardList();
-		model.addAttribute("postList", postList);
-		return "board/list";
+	public String showPostList(@RequestParam(value="seq", required = false, defaultValue ="0") int seq, Model model) {
+		List<PostVo> postList;
+		if ( seq == 0 ) {
+			postList = boardService.getBoardList();
+			model.addAttribute("postList", postList);
+			return "board/list";
+		} else {
+			postList = boardService.getBoardList(seq);
+			model.addAttribute("postList", postList);
+			return "board/list";
+		}
 	}
 	
 	@RequestMapping(value = "/detail")
@@ -50,8 +57,6 @@ public class BoardController {
 	@RequestMapping(value = "/doAdd")
 	public String doAddPost(@RequestParam Map<String, Object> info, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String url = "";
-		int nextAddNo = boardService.getLastNo() + 1;
-		info.put("no", nextAddNo);
 		int rsNum = boardService.addPost(info);
 		if (rsNum == 0) {
 			url = "redirect:/";
@@ -87,9 +92,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String doDeletePost(@RequestParam int seq,  HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String doDeletePost(@RequestParam(value="seq")int seq, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String url = "";
-		boardService.modifyPostNo(seq);
 		boardService.deletePost(seq);
 		response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();

@@ -10,27 +10,29 @@ function getMenu() {
 		dataType: "json"
 	})
 	.done(function(json) {
-		for ( var i = 0; i < json.length; i++ ) {
-			var menu = json[i];
-			drawMenu(menu);
-		}
+		var menu = json;
+		drawMenu(menu);
 	})
 }
 function drawMenu(menu) {
-	var name = menu.name;
-
-	var menu = '<input type="button" id="tm" value="' + name + '"/>';
-	
-	$('#topMenu').append(menu);
+	for ( var i = 0; i < menu.length; i++ ) {
+		var name = menu[i].name;
+		var seq = menu[i].seq;
+		$('#topMenu').append('<a href="javascript:showThisMenu(' + seq + ');">' + name + '</a>');
+	}
+}
+function showThisMenu(seq) {
+	var url = "boardlist?seq=" + seq;
+	if ( seq == 0 ) {
+		url = "boardlist";
+	}
+	location.href = url;
 }
 $(function() {
 	getMenu();
-
-	$('#tm').click(function() {
-		console.log("test");
-	});
 });
+
 </script>
 <div id="topMenu">
-
+	<a href="javascript:showThisMenu('0');">전체</a>
 </div>

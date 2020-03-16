@@ -31,6 +31,10 @@ $(function() {
 	<table>
 		<tbody>
 			<tr>
+				<th>메뉴</th>
+				<td>메뉴1<input type="radio" name="menu_seq" value="1" />메뉴2<input type="radio" name="menu_seq" value="2" /></td>
+			</tr>
+			<tr>
 				<th>제목 : </th>
 				<td><input type="text" name="title" value="" /></td>
 			</tr>

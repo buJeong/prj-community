@@ -17,8 +17,6 @@ public interface BoardService {
 
 	int deletePost(int seq);
 
-	int getLastNo();
-
-	void modifyPostNo(int seq);
+	List<PostVo> getBoardList(int seq);
 
 }

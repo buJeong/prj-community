@@ -35,12 +35,8 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deletePost(seq);
 	}
 	@Override
-	public int getLastNo() {
-		return boardDao.getLastNo();
-	}
-	@Override
-	public void modifyPostNo(int seq) {
-		boardDao.modifyPostNo(seq);
+	public List<PostVo> getBoardList(int seq) {
+		return boardDao.getListContainThisSeq(seq);
 	}
 
 }

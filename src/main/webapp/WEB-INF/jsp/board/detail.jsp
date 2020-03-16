@@ -4,11 +4,6 @@
 <%@ include file="../layout/header.jspf" %>
 <script type="text/javascript">
 
-function goList() {
-	var url = "/boardlist";
-	location.href = url;
-}
-
 function goModify(seq) {
 	var url = "/modify?seq=" + seq;
 	location.href = url;
@@ -22,7 +17,7 @@ function deletePost(seq) {
 	}
 }
 </script>
-<a href="javascript:goList();">목록</a>
+<a href="javascript:history.back();">목록</a>
 <table>
 	<tbody>
 		<tr>

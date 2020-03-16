@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostVo {
 	private int seq;
-	private int no;
 	private String regDate;
 	private String title;
 	private String contents;
 	private String writer;
 	private int hit;
+	private int menu_seq;
 	private Map<String, Object> extra;
 }
